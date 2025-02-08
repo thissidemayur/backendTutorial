@@ -1,10 +1,10 @@
 // 2 way
-import {ApiError} from './ApiError'
+import {ApiError} from './ApiError.js'
 
-const asyncHandler = async(requestHandler) =>{
+const asyncHandler = (requestHandler) =>{
     return (req,res,next)=> Promise.resolve(requestHandler(req,res,next))
     .catch((error)=> {
-        throw new ApiError(501, error?.message || "Invalid access token")
+        next(error)
     })
 }
 
